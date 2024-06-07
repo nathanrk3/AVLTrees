@@ -2,11 +2,12 @@
 // Created by natek on 6/6/2024.
 //
 #include "tree.h"
+#include<regex>
 
 //Abstracted Functions
 
 
-
+AVLTree::TreeNode::TreeNode(std::string x, std::string y) : name(x), ufid(y), left(nullptr), right(nullptr){}
 //actual functions
 int AVLTree::set_height(AVLTree::TreeNode *node)
 {
@@ -110,6 +111,42 @@ void AVLTree::printPostorder()
 {
     postorder_help(root);
 }
+
+int AVLTree::balance_factor(AVLTree::TreeNode *node)
+{
+    return set_height(node->left) - set_height(node->right);
+}
+
+AVLTree::TreeNode* AVLTree::InsertHelp(AVLTree::TreeNode *node, std::string name, std::string ufid)
+{
+    if(!node) {
+        return new TreeNode(name, ufid);
+
+    }
+    if(std::stoi(node->ufid) > std::stoi(ufid))
+    {
+        node->left = InsertHelp(node->left, name, ufid);
+    }
+    else if(std::stoi(node->ufid) < std::stoi(ufid))
+    {
+        node->right = InsertHelp(node->right, name, ufid);
+    }
+    else
+        return node;
+
+    node->height = set_height(node);
+    int balance = balance_factor(node);
+    if(balance > 1)
+    {
+        if(balance_factor(node->left) > 1)
+        {
+
+        }
+    }
+
+
+}
+
 
 
 

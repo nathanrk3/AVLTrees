@@ -6,14 +6,13 @@ class AVLTree
 private:
     struct TreeNode
     {
-        //This is the code for a singular
-        int val;
+
         std::string name;
         std::string ufid;
-        int height;
+        int height = 0;
         TreeNode *left;
         TreeNode *right;
-        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+        TreeNode(std::string x, std::string y);
     };
 
     TreeNode* root = nullptr;
@@ -26,11 +25,13 @@ private:
     int set_height(TreeNode* node);
 
 
-    TreeNode* InsertHelp(TreeNode* node, std::string name, int ufid);
+
+    TreeNode* InsertHelp(TreeNode* node, std::string name, std::string ufid);
 
     void inorder_help(TreeNode* head);
     void preorder_help(TreeNode* head);
     void postorder_help(TreeNode* head);
+    int balance_factor(TreeNode* node);
 
 
 

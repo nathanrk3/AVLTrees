@@ -8,5 +8,5 @@
 
 int main()
 {
-    std::cout << std::max(3,4);
+    std::cout <<std::max(3,4);
 }
