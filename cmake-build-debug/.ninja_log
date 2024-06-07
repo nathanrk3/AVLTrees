@@ -1,0 +1,15 @@
+# ninja log v5
+2	465	7393987874983464	build.ninja	8ccfb682cb88f5b5
+3	465	7393978324498560	CMakeFiles/AVLTree.dir/src/main.cpp.obj	9976b0d09e89c19e
+465	711	7393978326882556	AVLTree.exe	ab91ebe5c4f12996
+2	545	7393989206273216	CMakeFiles/AVLTree.dir/src/main.cpp.obj	9976b0d09e89c19e
+17	546	7393989206283222	CMakeFiles/AVLTree.dir/src/tree.cpp.obj	980cc06c5ac4aacb
+2	367	7393989662217776	CMakeFiles/AVLTree.dir/src/main.cpp.obj	9976b0d09e89c19e
+17	379	7393989662355692	CMakeFiles/AVLTree.dir/src/tree.cpp.obj	980cc06c5ac4aacb
+380	590	7393989664385399	AVLTree.exe	17c6f77f54dd4853
+53	621	7394143960734647	CMakeFiles/AVLTree.dir/src/main.cpp.obj	9976b0d09e89c19e
+3	622	7394143960834639	CMakeFiles/AVLTree.dir/src/tree.cpp.obj	980cc06c5ac4aacb
+622	904	7394143963855162	AVLTree.exe	17c6f77f54dd4853
+3	1348	7394783647768550	CMakeFiles/AVLTree.dir/src/main.cpp.obj	9976b0d09e89c19e
+66	1350	7394783648655498	CMakeFiles/AVLTree.dir/src/tree.cpp.obj	980cc06c5ac4aacb
+1350	2281	7394783657732203	AVLTree.exe	17c6f77f54dd4853
