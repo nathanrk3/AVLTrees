@@ -146,20 +146,22 @@ int AVLTree::balance_factor(AVLTree::TreeNode *node)
 AVLTree::TreeNode* AVLTree::InsertHelp(AVLTree::TreeNode *node, std::string name, std::string ufid)
 {
     if(!node) {
-        this->num_names++;
         return new TreeNode(name, ufid);
-
     }
     if(std::stoi(node->ufid) > std::stoi(ufid))
     {
         node->left = InsertHelp(node->left, name, ufid);
+        if(!node->left)
+            return nullptr;
     }
     else if(std::stoi(node->ufid) < std::stoi(ufid))
     {
         node->right = InsertHelp(node->right, name, ufid);
+        if(!node->right)
+            return nullptr;
     }
     else
-        return node;
+        return nullptr;
 
     node->height = set_height(node);
     int balance = balance_factor(node);
@@ -200,13 +202,23 @@ void AVLTree::insert(std::string name, std::string ufid)
         return;
 
     }
-    std::cout << "successful" << std::endl;
-    this->root =  InsertHelp(root, name, ufid);
+
+    TreeNode* temp = InsertHelp(root, name, ufid);
+    if(!temp)
+        std::cout << "unsuccessful" << std::endl;
+    else
+    {
+        this->root =  temp;
+        std::cout << "successful" <<std::endl;
+    }
 }
 
 void AVLTree::levelcount()
 {
-    std::cout << root->height << std::endl;
+    if(!root)
+        std::cout << 0 << std::endl;
+    else
+        std::cout << root->height << std::endl;
 }
 
 AVLTree::TreeNode* AVLTree::searchid_help(AVLTree::TreeNode *node, std::string id)
