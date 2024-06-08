@@ -62,49 +62,80 @@ AVLTree::TreeNode* AVLTree::right_left(TreeNode* node){
 
 void AVLTree::printInorder()
 {
-    inorder_help(root);
-}
-
-void AVLTree::inorder_help(AVLTree::TreeNode* head)
-{
-    if(!head)
-        return;
-
-    else
+    std::vector<TreeNode*> t = inorder_help(root);
+    for(auto i = 0; i < t.size(); i++)
     {
-        inorder_help(head->left);
-        std::cout << head->name << ", " << std::endl;
-        inorder_help(head->right);
+        std::cout << t[i]->name;
+        if(i != t.size()-1)
+            std::cout << ", ";
     }
+    std::cout << std::endl;
 }
 
-void AVLTree::preorder_help(AVLTree::TreeNode *head)
+std::vector<AVLTree::TreeNode*> AVLTree::inorder_help(AVLTree::TreeNode* head)
 {
+    std::vector<TreeNode*> t;
     if(!head)
-        return;
+        return t;
+    std::vector<TreeNode*> left = postorder_help(head->left);
+    std::vector<TreeNode*> right = postorder_help(head->right);
 
-    std::cout << head->name << ", " << std::endl;
-    preorder_help(head->left);
-    preorder_help(head->right);
+    t.insert(t.end(), left.begin(), left.end());
+    t.push_back(head);
+    t.insert(t.end(), right.begin(), right.end());
+    return t;
+}
+
+std::vector<AVLTree::TreeNode*> AVLTree::preorder_help(AVLTree::TreeNode *head)
+{
+    std::vector<TreeNode*> t;
+    if(!head)
+        return t;
+    std::vector<TreeNode*> left = postorder_help(head->left);
+    std::vector<TreeNode*> right = postorder_help(head->right);
+
+    t.push_back(head);
+    t.insert(t.end(), left.begin(), left.end());
+    t.insert(t.end(), right.begin(), right.end());
+    return t;
 }
 
 void AVLTree::printPreorder()
 {
-    preorder_help(root);
+    std::vector<TreeNode*> t = preorder_help(root);
+    for(auto i = 0; i < t.size(); i++)
+    {
+        std::cout << t[i]->name;
+        if(i != t.size()-1)
+            std::cout << ", ";
+    }
+    std::cout << std::endl;
 }
 
-void AVLTree::postorder_help(AVLTree::TreeNode *head)
+std::vector<AVLTree::TreeNode*> AVLTree::postorder_help(AVLTree::TreeNode *head)
 {
+    std::vector<TreeNode*> t;
     if(!head)
-        return;
-    postorder_help(head->left);
-    postorder_help(head->right);
-    std::cout << head->name << ", " << std::endl;
+        return t;
+    std::vector<TreeNode*> left = postorder_help(head->left);
+    std::vector<TreeNode*> right = postorder_help(head->right);
+
+    t.insert(t.end(), left.begin(), left.end());
+    t.insert(t.end(), right.begin(), right.end());
+    t.push_back(head);
+    return t;
 }
 
 void AVLTree::printPostorder()
 {
-    postorder_help(root);
+    std::vector<TreeNode*> t = postorder_help(root);
+    for(auto i = 0; i < t.size(); i++)
+    {
+        std::cout << t[i]->name;
+        if(i != t.size()-1)
+            std::cout << ", ";
+    }
+    std::cout << std::endl;
 }
 
 int AVLTree::balance_factor(AVLTree::TreeNode *node)
@@ -115,6 +146,7 @@ int AVLTree::balance_factor(AVLTree::TreeNode *node)
 AVLTree::TreeNode* AVLTree::InsertHelp(AVLTree::TreeNode *node, std::string name, std::string ufid)
 {
     if(!node) {
+        this->num_names++;
         return new TreeNode(name, ufid);
 
     }

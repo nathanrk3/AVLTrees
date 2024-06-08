@@ -10,10 +10,13 @@ int main()
 {
     AVLTree students;
     students.insert("Nathan King", "12345878");
-    students.insert("Nathan King", "12345778");
+    students.insert("Nathan Kingjames", "22222111");
+    students.insert("Lebron King", "22222222");
 
     students.name_from_id("12345878");
     students.id_from_name("Nathan King");
-    
+    students.printPostorder();
+    students.printInorder();
+    students.printPreorder();
 
 }

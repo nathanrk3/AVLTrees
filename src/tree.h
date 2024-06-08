@@ -1,6 +1,7 @@
 #ifndef PROJECT1_TREE_H
 #define PROJECT1_TREE_H
 #include<iostream>
+#include<vector>
 class AVLTree
 {
 private:
@@ -14,6 +15,8 @@ private:
         TreeNode *right;
         TreeNode(std::string x, std::string y);
     };
+    int num_names = 0;
+
 
     TreeNode* root = nullptr;
 
@@ -28,9 +31,9 @@ private:
 
     TreeNode* InsertHelp(TreeNode* node, std::string name, std::string ufid);
 
-    void inorder_help(TreeNode* head);
-    void preorder_help(TreeNode* head);
-    void postorder_help(TreeNode* head);
+    std::vector<TreeNode*> inorder_help(TreeNode* head);
+    std::vector<TreeNode*> preorder_help(TreeNode* head);
+    std::vector<TreeNode*> postorder_help(TreeNode* head);
     int balance_factor(TreeNode* node);
     TreeNode* searchid_help(TreeNode* node, std::string id);
     TreeNode* searchname_help(TreeNode* node, std::string name);
