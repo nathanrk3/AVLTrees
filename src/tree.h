@@ -32,7 +32,8 @@ private:
     void preorder_help(TreeNode* head);
     void postorder_help(TreeNode* head);
     int balance_factor(TreeNode* node);
-
+    TreeNode* searchid_help(TreeNode* node, std::string id);
+    TreeNode* searchname_help(TreeNode* node, std::string name);
 
 
 
@@ -40,15 +41,25 @@ private:
 
 
 public:
-    void insert(std::string name, int id);
-    void remove(int id);
-    void search(int id);
-    void search(std::string name);
+    TreeNode* getRoot();
+
+    void insert(std::string name, std::string id);
+
+    void remove(std::string id);
+
+    TreeNode* searchid(std::string id);
+    void name_from_id(std::string id);
+
+    TreeNode* searchname(std::string name);
+    void id_from_name(std::string name);
+
     void printInorder();
     void printPreorder();
     void printPostorder();
-    void printLevelCount();
+
     void removeInorder(int N);
+    void levelcount();
+
 };
 
 

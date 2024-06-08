@@ -5,8 +5,12 @@
 	1. You will have to comment main() when unit testing your code because catch uses its own main().
 	2. You will submit this main.cpp file and any header files you have on Gradescope. 
 */
-
+using namespace std;
 int main()
 {
-    std::cout <<std::max(3,4);
+    AVLTree students;
+    students.insert("Nathan King", "12345878");
+    students.name_from_id("12345878");
+    students.printPreorder();
+
 }

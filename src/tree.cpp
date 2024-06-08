@@ -24,15 +24,12 @@ int AVLTree::set_height(AVLTree::TreeNode *node)
 
 AVLTree::TreeNode* AVLTree::left_left(AVLTree::TreeNode* node)
 {
-    TreeNode* grandchild = node->left->right;
     TreeNode* new_parent = node->left;
+    node->left = new_parent->right;
     new_parent->right = node;
-    node->left = grandchild;
 
-
-    new_parent->height = set_height(new_parent);
-    node->left->height = set_height(node->left);
     node->height = set_height(node);
+    new_parent->height = set_height(new_parent);
 
     return new_parent;
 }
@@ -46,20 +43,18 @@ AVLTree::TreeNode* AVLTree::left_right(AVLTree::TreeNode* node)
 }
 AVLTree::TreeNode* AVLTree::right_right(TreeNode* node)
 {
-    TreeNode* grandchild = node->right->left;
     TreeNode* new_parent = node->right;
+    node->right = new_parent->left;
     new_parent->left = node;
-    node->right = grandchild;
 
-    new_parent->height = set_height(new_parent);
-    node->right->height = set_height(node->right);
     node->height = set_height(node);
+    new_parent->height = set_height(new_parent);
 
     return new_parent;
 }
 
-AVLTree::TreeNode* AVLTree::right_left(TreeNode* node)
-{
+AVLTree::TreeNode* AVLTree::right_left(TreeNode* node){
+
     node->right = left_left(node->right);
     return right_right(node);
 
@@ -138,16 +133,116 @@ AVLTree::TreeNode* AVLTree::InsertHelp(AVLTree::TreeNode *node, std::string name
     int balance = balance_factor(node);
     if(balance > 1)
     {
-        if(balance_factor(node->left) > 1)
+        if(balance_factor(node->left) > 0)
         {
-
+            node = left_left(node);
+        }
+        else
+        {
+            node = left_right(node);
         }
     }
+    else if(balance < -1)
+    {
+        if(balance_factor(node->right) < 0)
+        {
+            node = right_right(node);
+        }
+        else
+        {
+            node = right_left(node);
+        }
+    }
+    return node;
 
 
 }
 
+void AVLTree::insert(std::string name, std::string ufid)
+{
+    std::regex name_obj = std::regex("[a-zA-Z\\s]*");
+    std::regex id_obj = std::regex("[0-9]{8}");
+    if(!std::regex_match(name, name_obj) || !std::regex_match(ufid, id_obj))
+    {
+        std::cout << "unsuccessful" << std::endl;
+        return;
 
+    }
+    std::cout << "successful" << std::endl;
+    this->root =  InsertHelp(root, name, ufid);
+}
 
+void AVLTree::levelcount()
+{
+    std::cout << root->height << std::endl;
+}
 
+AVLTree::TreeNode* AVLTree::searchid_help(AVLTree::TreeNode *node, std::string id)
+{
 
+    if(node == nullptr)
+        return nullptr;
+    if(node->ufid == id)
+        return node;
+
+    if(std::stoi(id) > std::stoi(node->ufid))
+    {
+        return searchid_help(node->right, id);
+    }
+    else
+    {
+        return searchid_help(node->left, id);
+    }
+}
+
+AVLTree::TreeNode* AVLTree::searchid(std::string id)
+{
+    return searchid_help(root, id);
+}
+
+void AVLTree::name_from_id(std::string id)
+{
+    TreeNode* node = searchid(id);
+    if(!node)
+        std::cout << "unsuccessful" << std::endl;
+    else
+    {
+        std::cout << node->name << std::endl;
+    }
+}
+
+AVLTree::TreeNode* AVLTree::searchname_help(AVLTree::TreeNode *node, std::string name)
+{
+    if(!node)
+        return nullptr;
+    else if(node->name == name)
+    {
+        return node;
+    }
+    else
+    {
+        TreeNode* left = searchname_help(node->left, name);
+        if(left)
+            return left;
+        else
+        {
+            return searchname_help(node->right, name);
+        }
+    }
+}
+
+AVLTree::TreeNode* AVLTree::searchname(std::string name)
+{
+    return searchname_help(root, name);
+}
+
+void AVLTree::id_from_name(std::string name)
+{
+    TreeNode* node = searchname(name);
+    if(!node)
+        std::cout << "unsuccessful" << std::endl;
+    else
+    {
+        std:: cout << node->ufid << std::endl;
+    }
+}
