@@ -4,13 +4,13 @@
 #include<vector>
 class AVLTree
 {
-private:
+public:
     struct TreeNode
     {
 
         std::string name;
         std::string ufid;
-        int height = 0;
+        int height;
         TreeNode *left;
         TreeNode *right;
         TreeNode(std::string x, std::string y);

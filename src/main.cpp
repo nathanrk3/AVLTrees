@@ -11,7 +11,9 @@ int main()
     AVLTree students;
     students.levelcount();
     students.insert("Nathan King", "12345878");
+    students.levelcount();
     students.insert("Nathan Kingjames", "22222111");
+    students.levelcount();
     students.insert("Lebron King", "22222222");
     cout << endl;
     students.levelcount();
@@ -26,4 +28,5 @@ int main()
     students.levelcount();
     students.insert("Leb King", "22222242");
     students.levelcount();
+
 }
