@@ -2,9 +2,11 @@
 #define PROJECT1_TREE_H
 #include<iostream>
 #include<vector>
+#include<regex>
+
 class AVLTree
 {
-public:
+private:
     struct TreeNode
     {
 
@@ -13,6 +15,7 @@ public:
         int height;
         TreeNode *left;
         TreeNode *right;
+        TreeNode *parent;
         TreeNode(std::string x, std::string y);
     };
     int num_names = 0;
@@ -37,6 +40,8 @@ public:
     int balance_factor(TreeNode* node);
     TreeNode* searchid_help(TreeNode* node, std::string id);
     TreeNode* searchname_help(TreeNode* node, std::string name);
+    TreeNode* remove_help(TreeNode* node, std::string id);
+    TreeNode* find_parent(TreeNode* head, TreeNode* target); //need for delete function
 
 
 
@@ -62,6 +67,7 @@ public:
 
     void removeInorder(int N);
     void levelcount();
+
 
 };
 

@@ -2,7 +2,6 @@
 // Created by natek on 6/6/2024.
 //
 #include "tree.h"
-#include<regex>
 
 //Abstracted Functions
 
@@ -13,7 +12,7 @@ int AVLTree::set_height(AVLTree::TreeNode *node)
 {
     if(!node)
     {
-        return -1;
+        return 0;
     }
     else
     {
@@ -94,6 +93,7 @@ std::vector<AVLTree::TreeNode*> AVLTree::preorder_help(AVLTree::TreeNode *head)
     std::vector<TreeNode*> left = preorder_help(head->left);
     std::vector<TreeNode*> right = preorder_help(head->right);
 
+    // must push into a vector for the case of the last name(needs to not have a comma)
     t.push_back(head);
     t.insert(t.end(), left.begin(), left.end());
     t.insert(t.end(), right.begin(), right.end());
@@ -283,4 +283,69 @@ void AVLTree::id_from_name(std::string name)
     {
         std:: cout << node->ufid << std::endl;
     }
+}
+AVLTree::TreeNode* AVLTree::remove_help(AVLTree::TreeNode *head, std::string id)
+{
+    if(head == nullptr)
+    {
+        std::cout << "unsuccessful" <<std::endl;
+        return head;
+    }
+    if(std::stoi(head->ufid) > std::stoi(id))
+    {
+        head->left = remove_help(head->left, id);
+    }
+    else if(std::stoi(head->ufid) < std::stoi(id))
+    {
+        head->right = remove_help(head->right, id);
+    }
+    else
+    {
+        if(!head->right || !head->left) // no children or one child
+        {
+            TreeNode* child = head->right ? head->right : head->left;
+            if(!child)
+            {
+                delete head;
+                head = nullptr;
+            }
+            else
+            {
+                *head = *child;
+                delete child;
+            }
+        }
+        else
+        {
+            TreeNode* successor = head->right;
+            while(successor->left)
+                successor = successor->left;
+            head->ufid = successor->ufid;
+            head->name = successor->name;
+
+            head->right = remove_help(head->right, successor->ufid);
+        }
+        std::cout << "successful" <<std::endl;
+
+    }
+
+    return head;
+
+
+}
+
+void AVLTree::remove(std::string id)
+{
+    root = remove_help(root, id);
+}
+
+void AVLTree::removeInorder(int N)
+{
+    std::vector<TreeNode*> nodes = inorder_help(root);
+    if(N <  0 || N > nodes.size()-1)
+    {
+        std::cout << "unsuccessful" << std::endl;
+        return;
+    }
+    remove(nodes[N]->ufid);
 }
