@@ -16,12 +16,12 @@ int AVLTree::set_height(AVLTree::TreeNode *node)
     }
     else
     {
-        return 1 + std::max(set_height(node->left), set_height(node->right));
+        return 1 + std::max(set_height(node->left), set_height(node->right)); // recursively set the height
     }
 
 }
 
-AVLTree::TreeNode* AVLTree::left_left(AVLTree::TreeNode* node)
+AVLTree::TreeNode* AVLTree::left_left(AVLTree::TreeNode* node) //in the case of left left imbalance, perform a right rotation
 {
     TreeNode* new_parent = node->left;
     node->left = new_parent->right;
@@ -34,13 +34,13 @@ AVLTree::TreeNode* AVLTree::left_left(AVLTree::TreeNode* node)
 }
 
 
-AVLTree::TreeNode* AVLTree::left_right(AVLTree::TreeNode* node)
+AVLTree::TreeNode* AVLTree::left_right(AVLTree::TreeNode* node) // left rotation followed by right rotation
 {
     node->left = right_right(node->left);
     return left_left(node);
 
 }
-AVLTree::TreeNode* AVLTree::right_right(TreeNode* node)
+AVLTree::TreeNode* AVLTree::right_right(TreeNode* node) // left rotation
 {
     TreeNode* new_parent = node->right;
     node->right = new_parent->left;
@@ -52,7 +52,8 @@ AVLTree::TreeNode* AVLTree::right_right(TreeNode* node)
     return new_parent;
 }
 
-AVLTree::TreeNode* AVLTree::right_left(TreeNode* node){
+AVLTree::TreeNode* AVLTree::right_left(TreeNode* node) // right rotation followed by left rotation
+{
 
     node->right = left_left(node->right);
     return right_right(node);
@@ -61,6 +62,7 @@ AVLTree::TreeNode* AVLTree::right_left(TreeNode* node){
 
 void AVLTree::printInorder()
 {
+
     std::vector<TreeNode*> t = inorder_help(root);
     for(auto i = 0; i < t.size(); i++)
     {
@@ -71,7 +73,7 @@ void AVLTree::printInorder()
     std::cout << std::endl;
 }
 
-std::vector<AVLTree::TreeNode*> AVLTree::inorder_help(AVLTree::TreeNode* head)
+std::vector<AVLTree::TreeNode*> AVLTree::inorder_help(AVLTree::TreeNode* head) //return a vector for format issues
 {
     std::vector<TreeNode*> t;
     if(!head)
@@ -79,6 +81,8 @@ std::vector<AVLTree::TreeNode*> AVLTree::inorder_help(AVLTree::TreeNode* head)
     std::vector<TreeNode*> left = inorder_help(head->left);
     std::vector<TreeNode*> right = inorder_help(head->right);
 
+
+    //inorder, left, head, right
     t.insert(t.end(), left.begin(), left.end());
     t.push_back(head);
     t.insert(t.end(), right.begin(), right.end());
@@ -93,7 +97,7 @@ std::vector<AVLTree::TreeNode*> AVLTree::preorder_help(AVLTree::TreeNode *head)
     std::vector<TreeNode*> left = preorder_help(head->left);
     std::vector<TreeNode*> right = preorder_help(head->right);
 
-    // must push into a vector for the case of the last name(needs to not have a comma)
+    //preorder, head, left, right
     t.push_back(head);
     t.insert(t.end(), left.begin(), left.end());
     t.insert(t.end(), right.begin(), right.end());
@@ -120,6 +124,7 @@ std::vector<AVLTree::TreeNode*> AVLTree::postorder_help(AVLTree::TreeNode *head)
     std::vector<TreeNode*> left = postorder_help(head->left);
     std::vector<TreeNode*> right = postorder_help(head->right);
 
+    //left, right, visit
     t.insert(t.end(), left.begin(), left.end());
     t.insert(t.end(), right.begin(), right.end());
     t.push_back(head);
@@ -140,17 +145,19 @@ void AVLTree::printPostorder()
 
 int AVLTree::balance_factor(AVLTree::TreeNode *node)
 {
+    // used for rotations after insert
     return set_height(node->left) - set_height(node->right);
 }
 
 AVLTree::TreeNode* AVLTree::InsertHelp(AVLTree::TreeNode *node, std::string name, std::string ufid)
 {
+
     if(!node) {
         std::cout << "successful" <<std::endl;
         return new TreeNode(name, ufid);
     }
     if(std::stoi(node->ufid) > std::stoi(ufid))
-    {
+    { //insert recursively
         node->left = InsertHelp(node->left, name, ufid);
 
     }
@@ -165,8 +172,11 @@ AVLTree::TreeNode* AVLTree::InsertHelp(AVLTree::TreeNode *node, std::string name
         return node;
     }
 
+    //check for balance after the inserts, from the bottom up
     node->height = set_height(node);
     int balance = balance_factor(node);
+
+    //handle all cases for imbalance
     if(balance > 1)
     {
         if(balance_factor(node->left) > 0)
@@ -202,22 +212,21 @@ void AVLTree::insert(std::string name, std::string ufid)
     {
         std::cout << "unsuccessful" << std::endl;
         return;
-
     }
 
+
+
     this->root = InsertHelp(root, name, ufid);
-
-
 }
 
-void AVLTree::levelcount()
+void AVLTree::levelcount() // prints the amount of levels in the tree
 {
     std::cout << set_height(root) << std::endl;
 }
 
 AVLTree::TreeNode* AVLTree::searchid_help(AVLTree::TreeNode *node, std::string id)
 {
-
+//recursively finds the node with the given id, O(h) time, where h is the height of the tree
     if(node == nullptr)
         return nullptr;
     if(node->ufid == id)
@@ -233,14 +242,11 @@ AVLTree::TreeNode* AVLTree::searchid_help(AVLTree::TreeNode *node, std::string i
     }
 }
 
-AVLTree::TreeNode* AVLTree::searchid(std::string id)
-{
-    return searchid_help(root, id);
-}
 
 void AVLTree::name_from_id(std::string id)
 {
-    TreeNode* node = searchid(id);
+
+    TreeNode* node = searchid_help(root, id);
     if(!node)
         std::cout << "unsuccessful" << std::endl;
     else
@@ -249,39 +255,42 @@ void AVLTree::name_from_id(std::string id)
     }
 }
 
-AVLTree::TreeNode* AVLTree::searchname_help(AVLTree::TreeNode *node, std::string name)
-{
+std::vector<AVLTree::TreeNode*> AVLTree::searchname_help(AVLTree::TreeNode *node, std::string name)
+{//O(n) time, where n is number of nodes. this is because the tree is not sorted by name
+    std::vector<TreeNode*> t; // make a vector in the case of duplicate names
     if(!node)
-        return nullptr;
-    else if(node->name == name)
+        return t;
+    if(node->name == name)
     {
-        return node;
+        t.push_back(node);
     }
-    else
+    if(node->left)
     {
-        TreeNode* left = searchname_help(node->left, name);
-        if(left)
-            return left;
-        else
-        {
-            return searchname_help(node->right, name);
-        }
+        std::vector<TreeNode*> l = searchname_help(node->left, name);
+        t.insert(t.end(), l.begin(), l.end());
     }
+    if(node->right)
+    {
+        std::vector<TreeNode*> r = searchname_help(node->right, name);
+        t.insert(t.end(), r.begin(), r.end());
+    }
+
+    return t;
 }
 
-AVLTree::TreeNode* AVLTree::searchname(std::string name)
-{
-    return searchname_help(root, name);
-}
+
 
 void AVLTree::id_from_name(std::string name)
 {
-    TreeNode* node = searchname(name);
-    if(!node)
+    std::vector<TreeNode*> ids = searchname_help(root, name);
+    if(ids.empty()) //case where no names were found
         std::cout << "unsuccessful" << std::endl;
     else
-    {
-        std:: cout << node->ufid << std::endl;
+    { // print every name in the vector
+        for(int i = 0; i < ids.size(); i++)
+        {
+            std::cout << ids[i]->name << std::endl;
+        }
     }
 }
 AVLTree::TreeNode* AVLTree::remove_help(AVLTree::TreeNode *head, std::string id)
@@ -314,6 +323,7 @@ AVLTree::TreeNode* AVLTree::remove_help(AVLTree::TreeNode *head, std::string id)
                 *head = *child;
                 delete child;
             }
+            std::cout << "successful" << std::endl;
         }
         else
         {
@@ -324,8 +334,9 @@ AVLTree::TreeNode* AVLTree::remove_help(AVLTree::TreeNode *head, std::string id)
             head->name = successor->name;
 
             head->right = remove_help(head->right, successor->ufid);
+            std::cout << "successful" << std::endl;
         }
-        std::cout << "successful" <<std::endl;
+
 
     }
 
@@ -340,6 +351,7 @@ void AVLTree::remove(std::string id)
 }
 
 void AVLTree::removeInorder(int N)
+// call the inorder function to get a vector of the nodes inorder, then call delete on the Nth node
 {
     std::vector<TreeNode*> nodes = inorder_help(root);
     if(N <  0 || N > nodes.size()-1)
@@ -348,4 +360,21 @@ void AVLTree::removeInorder(int N)
         return;
     }
     remove(nodes[N]->ufid);
+}
+
+AVLTree::AVLTree()
+{
+    root = nullptr; // initializes tree
+}
+AVLTree::~AVLTree()
+{
+    clear(root); //frees allocated memory
+}
+void AVLTree::clear(AVLTree::TreeNode *head)
+{
+    if(!head)
+        return;
+    clear(head->left);
+    clear(head->right);
+    delete head;
 }

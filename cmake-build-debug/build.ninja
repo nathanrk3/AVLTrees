@@ -41,43 +41,43 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/natek/CLionProjects/AVLTree/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target AVLTree
+# Object build statements for EXECUTABLE target AVLTreeTest
 
 
 #############################################
-# Order-only phony target for AVLTree
+# Order-only phony target for AVLTreeTest
 
-build cmake_object_order_depends_target_AVLTree: phony || CMakeFiles/AVLTree.dir
+build cmake_object_order_depends_target_AVLTreeTest: phony || CMakeFiles/AVLTreeTest.dir
 
-build CMakeFiles/AVLTree.dir/src/main.cpp.obj: CXX_COMPILER__AVLTree_unscanned_Debug C$:/Users/natek/CLionProjects/AVLTree/src/main.cpp || cmake_object_order_depends_target_AVLTree
-  DEP_FILE = CMakeFiles\AVLTree.dir\src\main.cpp.obj.d
+build CMakeFiles/AVLTreeTest.dir/src/tree.cpp.obj: CXX_COMPILER__AVLTreeTest_unscanned_Debug C$:/Users/natek/CLionProjects/AVLTree/src/tree.cpp || cmake_object_order_depends_target_AVLTreeTest
+  DEP_FILE = CMakeFiles\AVLTreeTest.dir\src\tree.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\AVLTree.dir
-  OBJECT_FILE_DIR = CMakeFiles\AVLTree.dir\src
+  OBJECT_DIR = CMakeFiles\AVLTreeTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\AVLTreeTest.dir\src
 
-build CMakeFiles/AVLTree.dir/src/tree.cpp.obj: CXX_COMPILER__AVLTree_unscanned_Debug C$:/Users/natek/CLionProjects/AVLTree/src/tree.cpp || cmake_object_order_depends_target_AVLTree
-  DEP_FILE = CMakeFiles\AVLTree.dir\src\tree.cpp.obj.d
+build CMakeFiles/AVLTreeTest.dir/test-unit/test.cpp.obj: CXX_COMPILER__AVLTreeTest_unscanned_Debug C$:/Users/natek/CLionProjects/AVLTree/test-unit/test.cpp || cmake_object_order_depends_target_AVLTreeTest
+  DEP_FILE = CMakeFiles\AVLTreeTest.dir\test-unit\test.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\AVLTree.dir
-  OBJECT_FILE_DIR = CMakeFiles\AVLTree.dir\src
+  OBJECT_DIR = CMakeFiles\AVLTreeTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\AVLTreeTest.dir\test-unit
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target AVLTree
+# Link build statements for EXECUTABLE target AVLTreeTest
 
 
 #############################################
-# Link the executable AVLTree.exe
+# Link the executable AVLTreeTest.exe
 
-build AVLTree.exe: CXX_EXECUTABLE_LINKER__AVLTree_Debug CMakeFiles/AVLTree.dir/src/main.cpp.obj CMakeFiles/AVLTree.dir/src/tree.cpp.obj
+build AVLTreeTest.exe: CXX_EXECUTABLE_LINKER__AVLTreeTest_Debug CMakeFiles/AVLTreeTest.dir/src/tree.cpp.obj CMakeFiles/AVLTreeTest.dir/test-unit/test.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\AVLTree.dir
+  OBJECT_DIR = CMakeFiles\AVLTreeTest.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = AVLTree.exe
-  TARGET_IMPLIB = libAVLTree.dll.a
-  TARGET_PDB = AVLTree.exe.dbg
+  TARGET_FILE = AVLTreeTest.exe
+  TARGET_IMPLIB = libAVLTreeTest.dll.a
+  TARGET_PDB = AVLTreeTest.exe.dbg
 
 
 #############################################
@@ -105,7 +105,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build AVLTree: phony AVLTree.exe
+build AVLTreeTest: phony AVLTreeTest.exe
 
 # =============================================================================
 # Folder targets.
@@ -115,7 +115,7 @@ build AVLTree: phony AVLTree.exe
 #############################################
 # Folder: C:/Users/natek/CLionProjects/AVLTree/cmake-build-debug
 
-build all: phony AVLTree.exe
+build all: phony AVLTreeTest.exe
 
 # =============================================================================
 # Built-in targets

@@ -15,16 +15,13 @@ private:
         int height;
         TreeNode *left;
         TreeNode *right;
-        TreeNode *parent;
         TreeNode(std::string x, std::string y);
     };
-    int num_names = 0;
+    TreeNode* root;
 
 
-    TreeNode* root = nullptr;
 
-    void balance(TreeNode* node);
-    TreeNode* left_left(TreeNode* node);
+    TreeNode* left_left(TreeNode* node); // rotation methods
     TreeNode* left_right(TreeNode* node);
     TreeNode* right_right(TreeNode* node);
     TreeNode* right_left(TreeNode* node);
@@ -34,14 +31,14 @@ private:
 
     TreeNode* InsertHelp(TreeNode* node, std::string name, std::string ufid);
 
-    std::vector<TreeNode*> inorder_help(TreeNode* head);
+    std::vector<TreeNode*> inorder_help(TreeNode* head); // need for format and helps removeInorder function
     std::vector<TreeNode*> preorder_help(TreeNode* head);
-    std::vector<TreeNode*> postorder_help(TreeNode* head);
-    int balance_factor(TreeNode* node);
-    TreeNode* searchid_help(TreeNode* node, std::string id);
-    TreeNode* searchname_help(TreeNode* node, std::string name);
-    TreeNode* remove_help(TreeNode* node, std::string id);
-    TreeNode* find_parent(TreeNode* head, TreeNode* target); //need for delete function
+    std::vector<TreeNode*> postorder_help(TreeNode* head); // needed for format
+    int balance_factor(TreeNode* node); // used for balancing tree
+    TreeNode* searchid_help(TreeNode* node, std::string id); // abstracts search ID function
+    std::vector<TreeNode*> searchname_help(TreeNode* node, std::string name); // abstracts the search NAME function
+    TreeNode* remove_help(TreeNode* node, std::string id); //helps abstract the remove function
+    void clear(TreeNode* head); // use for destructor
 
 
 
@@ -49,7 +46,6 @@ private:
 
 
 public:
-    TreeNode* getRoot();
 
     void insert(std::string name, std::string id);
 
@@ -67,6 +63,8 @@ public:
 
     void removeInorder(int N);
     void levelcount();
+    ~AVLTree();
+    AVLTree();
 
 
 };

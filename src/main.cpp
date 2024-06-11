@@ -64,7 +64,7 @@ int main()
                 students.name_from_id(args[1]);
                 continue;
             }
-            exp = std::regex("search\\s([a-zA-Z\\s]*)"); //regex for search name
+            exp = std::regex("search\\s(\"[a-zA-Z\\s]*\")"); //regex for search name
             if(std::regex_match(argument, args, exp))
             {
                 students.id_from_name(args[1]);

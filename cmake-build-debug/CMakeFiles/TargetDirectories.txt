@@ -1,3 +1,3 @@
-C:/Users/natek/CLionProjects/AVLTree/cmake-build-debug/CMakeFiles/AVLTree.dir
+C:/Users/natek/CLionProjects/AVLTree/cmake-build-debug/CMakeFiles/AVLTreeTest.dir
 C:/Users/natek/CLionProjects/AVLTree/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/natek/CLionProjects/AVLTree/cmake-build-debug/CMakeFiles/rebuild_cache.dir
