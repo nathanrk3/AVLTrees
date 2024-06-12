@@ -3,8 +3,8 @@ project(Project1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(AVLTreeTest
+add_executable(AVLTREETEST
         src/tree.h
         src/tree.cpp
         test-unit/test.cpp
-        )
+)

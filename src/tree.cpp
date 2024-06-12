@@ -221,7 +221,12 @@ void AVLTree::insert(std::string name, std::string ufid)
 
 void AVLTree::levelcount() // prints the amount of levels in the tree
 {
-    std::cout << set_height(root) << std::endl;
+    if(!root)
+    {
+        std::cout << 0 << std::endl;
+        return;
+    }
+    std::cout << root->height << std::endl;
 }
 
 AVLTree::TreeNode* AVLTree::searchid_help(AVLTree::TreeNode *node, std::string id)
@@ -289,7 +294,7 @@ void AVLTree::id_from_name(std::string name)
     { // print every name in the vector
         for(int i = 0; i < ids.size(); i++)
         {
-            std::cout << ids[i]->name << std::endl;
+            std::cout << ids[i]->ufid << std::endl;
         }
     }
 }
@@ -377,4 +382,15 @@ void AVLTree::clear(AVLTree::TreeNode *head)
     clear(head->left);
     clear(head->right);
     delete head;
+}
+
+std::vector<std::string> AVLTree::inorder_unit_test(AVLTree::TreeNode *head)
+{
+    std::vector<TreeNode*> t = inorder_help(head);
+    std::vector<std::string> s;
+    for(int i = 0; i < t.size(); i++)
+    {
+        s.push_back(t[i]->name);
+    }
+    return s;
 }

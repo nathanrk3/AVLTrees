@@ -12,7 +12,7 @@ private:
 
         std::string name;
         std::string ufid;
-        int height;
+        int height = 0;
         TreeNode *left;
         TreeNode *right;
         TreeNode(std::string x, std::string y);
@@ -47,6 +47,14 @@ private:
 
 public:
 
+    TreeNode* getRoot() // only used for unit tests
+    {
+        return root;
+    }
+
+    std::vector<std::string> inorder_unit_test(TreeNode* head); // only used for help on the unit test
+
+
     void insert(std::string name, std::string id);
 
     void remove(std::string id);
@@ -63,6 +71,7 @@ public:
 
     void removeInorder(int N);
     void levelcount();
+
     ~AVLTree();
     AVLTree();
 
